@@ -45,19 +45,25 @@ export interface ComponentConfig {
   // Optional on purpose. If a component doesn't have this set (older/existing
   // designs), we treat it as O(1) so nothing changes for them automatically.
   timeComplexity?: TimeComplexity; // how latency scales with payload size; omitted = O(1), no scaling
+
   customLatencyMs?: number;
   customMaxRps?: number;
+  customThroughputMBps?: number;
   customCostPerHour?: number;
+
   cacheTtlSeconds?: number; // for cache components
   cacheHitRate?: number; // 0-1 for cache components
+
   queueMaxMessages?: number; // for message queue
   queueProcessingTimeMs?: number; // for message queue consumer
+
   // Rate limiter config
   rateLimitAlgorithm?: RateLimitAlgorithm;
   rateLimitBucketSize?: number; // token bucket: max tokens / leaky bucket: bucket capacity
   rateLimitRefillRate?: number; // token bucket: tokens/sec refill rate
   rateLimitWindowSeconds?: number; // fixed/sliding window: window duration in seconds
   rateLimitMaxRequests?: number; // fixed/sliding window: max requests per window
+
   // Redis counter config
   redisCounterTtlSeconds?: number; // how long before counter expires and resets
 }

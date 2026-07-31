@@ -269,6 +269,97 @@ export default function ConfigPanel({
           )}
         </div>
       </div>
+{selectedService && (
+  <div className="space-y-3">
+    <h4 className="text-xs font-semibold text-gray-500 uppercase">
+      Specs (per instance)
+    </h4>
+
+    {/* Base Latency */}
+    <div className="space-y-1.5">
+      <Label className="text-xs">Latency (ms)</Label>
+      <Input
+        type="number"
+        value={data.config.customLatencyMs ?? selectedService.baseLatencyMs}
+        onChange={(e) =>
+          onUpdate(node.id, {
+            config: {
+              ...data.config,
+              customLatencyMs: Number(e.target.value),
+            },
+          })
+        }
+        className="h-8 text-sm"
+      />
+    </div>
+
+    {/* Max RPS */}
+    <div className="space-y-1.5">
+      <Label className="text-xs">Max RPS</Label>
+      <Input
+        type="number"
+        value={data.config.customMaxRps ?? selectedService.maxRps}
+        onChange={(e) =>
+          onUpdate(node.id, {
+            config: {
+              ...data.config,
+              customMaxRps: Number(e.target.value),
+            },
+          })
+        }
+        className="h-8 text-sm"
+      />
+    </div>
+
+    {/* Throughput */}
+    <div className="space-y-1.5">
+     <Label className="text-xs">Throughput (MB/s)</Label>
+
+<Input
+  type="number"
+  min="0"
+  value={data.config.customThroughputMBps ?? selectedService.maxThroughputMBps}
+  onChange={(e) =>
+    onUpdate(node.id, {
+      config: {
+        ...data.config,
+        customThroughputMBps: Number(e.target.value),
+      },
+    })
+  }
+  className="h-8 text-sm"
+/>
+    </div>
+
+    {/* Cost */}
+    <div className="space-y-1.5">
+      <Label className="text-xs">Cost / Hour ($)</Label>
+      <Input
+        type="number"
+        step="0.001"
+        min="0"
+        value={
+          data.config.customCostPerHour ??
+          selectedService.baseCostPerHour
+        }
+        onChange={(e) =>
+          onUpdate(node.id, {
+            config: {
+              ...data.config,
+              customCostPerHour: Number(e.target.value),
+            },
+          })
+        }
+        className="h-8 text-sm"
+      />
+    </div>
+
+    <p className="text-[10px] text-gray-500">
+      The default values are for simulation purpose only, override with
+      actual values for accurate results.
+    </p>
+  </div>
+)}
 
       {/* Cache-specific */}
       {data.componentType === "cache" && (
